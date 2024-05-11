@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 
 @Entity
 @EntityScan
-@Table(name = "User")
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"Email"})},name = "User")
 public class UserModel {
     @Id
     @Column
@@ -38,16 +38,21 @@ public class UserModel {
     @JsonProperty("CartList")
     private List<Long> CartList;
 
+    @Column(name = "admin")
+    @JsonProperty("admin")
+    private boolean admin;
+
     public UserModel() {
 
     }
 
-    public UserModel(String FirstName, String LastName, String Email, String Password, List<Long> CartList) {
+    public UserModel(String FirstName, String LastName, String Email, String Password, List<Long> CartList, boolean admin) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Email = Email;
         this.Password = Password;
         this.CartList=CartList;
+        this.admin=admin;
     }
 
     public void setId(long id) {
@@ -96,6 +101,10 @@ public class UserModel {
 
     public void setCartList(List<Long> CartList) {
         this.CartList = CartList;
+    }
+
+    public boolean getAdmin() {
+        return this.admin;
     }
 
 }
