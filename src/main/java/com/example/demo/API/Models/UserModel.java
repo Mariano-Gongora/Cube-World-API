@@ -11,14 +11,14 @@ import jakarta.persistence.*;
 
 @Entity
 @EntityScan
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"Email"})},name = "User")
+@Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = { "Email" }) })
 public class UserModel {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "Email")
+    @Column(name = "Email",unique = true)
     @JsonProperty("Email")
     private String Email;
 
